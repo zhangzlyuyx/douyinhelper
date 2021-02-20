@@ -101,7 +101,8 @@ class DouYin:
  
             video_list.append({
                 'desc': re.sub(r'[\/:*?"<>|]', '', item['desc']) if item['desc'] else '无标题' + str(int(time.time())),
-                'url': item['video']['play_addr']['url_list'][0]
+                'url': item['video']['play_addr']['url_list'][0],
+                'aweme_id': item['aweme_id']
             })
         return nickname, video_list, max_cursor, has_more
  
@@ -202,6 +203,7 @@ class DouYin:
             for num in range(page_count):
                 title = video_list[num]['desc']
                 title = title.replace('@抖音小助手', '').strip()
+                title = video_list[num]['aweme_id'] + '_' + title
                 print('---正在解析第{0}/{1}个视频链接 [{2}]，请稍后...'.format(num + 1, page_count, title))
      
                 video_path = os.path.join(nickname_dir, title)
